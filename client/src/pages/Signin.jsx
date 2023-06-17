@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { MdEmail, MdPassword } from 'react-icons/md'
-import { Navbar } from '../components'
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
-import { signinImage } from '../assets'
-import { Account, ID } from 'appwrite'
-import { client } from '../appwrite'
-import jwt_decode from 'jwt-decode'
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MdEmail, MdPassword } from 'react-icons/md';
+import { FcGoogle } from 'react-icons/fc'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { signinImage } from '../assets';
+import { Account } from 'appwrite';
+import { client } from '../appwrite';
 
 
 const Signin = ({ setUser }) => {
@@ -20,35 +18,18 @@ const Signin = ({ setUser }) => {
 
   const navigate = useNavigate();
 
-  const onSuccessSignin = (res) => {
-    var userObj = jwt_decode(res.credential);
-    setUser(userObj);
-    navigate('/')
-  }
 
-  useEffect(() => {
-    google.accounts.id.initialize({
-      client_id: "103320765379-rl7hj6navljqs6kb4cncj12pp8nrerr5.apps.googleusercontent.com",
-      callback: onSuccessSignin,
-    });
-
-    google.accounts.id.renderButton(
-      document.getElementById("googleBtn"),
-      { theme: "outline", size: "large", text: "continue_with", shape: "rectangular" }
-    );
-  }, [])
 
   async function onSignIn(e) {
-    await account.createEmailSession(email, password)
+    await account.createEmailSession(email, password);
     e.preventDefault();
   }
 
-
-
-  const onFailed = (res) => {
-    console.log("Login failed: ", res);
+  async function googleSignIn(e) {
+    const result = account.createOAuth2Session('google', 'http://localhost:5173', 'http://localhost:5173/failed');
+    console.log('From google sign in', result);
+    e.preventDefault();
   }
-
 
   const [show, setShow] = useState(false);
 
@@ -119,20 +100,18 @@ const Signin = ({ setUser }) => {
                 <div className='flex flex-col justify-center items-center text-center gap-3'>
                   <p className='text-center text-black'>Sign In using : </p>
                   <div className='flex justify-center items-center gap-5'>
-                    <div id="googleBtn">
-
-                    </div>
+                    <FcGoogle onClick={googleSignIn} className='w-[30px] h-[30px] text-cyan-600 hover:text-[#db4437] transition-all ease-in-out duration-300 cursor-pointer' />
                   </div>
                 </div>
-                <p className='text-cyan-900 font-medium'>Do not have an account ? <span className='text-cyan-800 hover:text-gray-800 transition-all duration-300 ease-in-out '><Link to="/signup">Sign Up</Link></span> </p>
               </div>
+              <p className='text-cyan-900 font-medium'>Do not have an account ? <span className='text-cyan-800 hover:text-gray-800 transition-all duration-300 ease-in-out '><Link to="/signup">Sign Up</Link></span> </p>
               <p className='font-medium text-[#13046b] hover:underline cursor-pointer transition-all duration-150 ease-in-out'>Forgot Password ?</p>
             </form>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Signin
+export default Signin;

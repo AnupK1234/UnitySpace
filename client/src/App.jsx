@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from "react"
 import { Navbar, Footer } from "./components"
 import { Home, Signin, Signup, Aware, Events, Profile } from "./pages"
