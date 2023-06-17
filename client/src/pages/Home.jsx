@@ -1,16 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { Databases, ID } from 'appwrite';
+import { client } from '../appwrite';
 
 const Home = () => {
 
   const [tweets, setTweets] = useState([]);
   const [newTweet, setNewTweet] = useState('');
 
+  const database = new Databases(client);
   // Fetch previous posts
+  useEffect(() => {
+    (async () => {
+      const dbTweets = await database.listDocuments('events', 'posts');
+      setTweets(dbTweets.documents);
+      console.log(dbTweets)
+    })();
+  }, []);
 
-  const handleSubmit = event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Create new post object
+    const result = await database.createDocument('events', 'posts', ID.unique(), {
+      author: 'me',
+      content: newTweet,
+      timestamp: new Date().toLocaleString()
+    });
+    console.log(result);
   };
 
 
