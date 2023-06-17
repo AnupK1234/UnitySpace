@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaFacebook, FaUser, FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { MdEmail, MdPassword } from 'react-icons/md'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Account, ID } from 'appwrite'
 import { client } from '../appwrite'
+import jwt_decode from 'jwt-decode'
 
-const Signup = () => {
+
+const Signup = ({ user, setUser }) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -17,9 +19,29 @@ const Signup = () => {
   const account = new Account(client);
 
   async function onSignUp(e) {
-    await account.create(ID.unique(), email, password, username)
-    e.preventDefault();
+    // await account.create(ID.unique(), email, password, username)
+    // e.preventDefault();
   }
+
+  const navigate = useNavigate();
+
+  const onSuccessSignup = (res) => {
+    var userObj = jwt_decode(res.credential);
+    setUser(userObj);
+    navigate('/');
+  }
+
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id: "103320765379-rl7hj6navljqs6kb4cncj12pp8nrerr5.apps.googleusercontent.com",
+      callback: onSuccessSignup,
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("googleBtn"),
+      { theme: "outline", size: "large", text: "continue_with", shape: "rectangular" }
+    );
+  }, [])
 
 
   const [show, setShow] = useState(false);
@@ -46,14 +68,16 @@ const Signup = () => {
             <div className='flex flex-col justify-center items-center text-center gap-3'>
               <p className='text-center text-white'>Sign Up using : </p>
               <div className='flex justify-center items-center gap-5'>
-                <FcGoogle className='w-[30px] h-[30px] text-cyan-600 hover:text-[#db4437] transition-all ease-in-out duration-300 cursor-pointer' />
+                <div id="googleBtn">
+
+                </div>
               </div>
             </div>
             <p className='text-cyan-300 font-medium'>Already have an acccount ? <span className='text-cyan-600 hover:text-cyan-700 transition-all duration-300 ease-in-out '><Link to="/signin">Sign In</Link></span> </p>
           </div>
           <div className="bg-cyan-300 rounded-md shadow-lg w-2/3">
             {/* Sign Up form */}
-            <form className='flex flex-col justify-center items-center gap-5 p-5' onSubmit={e=>e.preventDefault()}>
+            <form className='flex flex-col justify-center items-center gap-5 p-5' onSubmit={e => e.preventDefault()}>
               <h1 className='text-2xl text-center text-[#13046b] font-bold'>Sign Up</h1>
 
               {/* Name */}
