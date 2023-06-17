@@ -4,6 +4,8 @@ import { FcGoogle } from 'react-icons/fc'
 import { MdEmail, MdPassword } from 'react-icons/md'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { Account, ID } from 'appwrite'
+import { client } from '../appwrite'
 
 const Signup = () => {
 
@@ -12,9 +14,11 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  function onSignUp(e) {
+  const account = new Account(client);
+
+  async function onSignUp(e) {
+    await account.create(ID.unique(), email, password, username)
     e.preventDefault();
-    //implement signup logic here
   }
 
 
@@ -22,12 +26,12 @@ const Signup = () => {
 
   function showPW() {
     document.getElementById("password").setAttribute("type", "text");
-    document.getElementById("confirm-password").setAttribute("type", "text");
+    // document.getElementById("confirm-password").setAttribute("type", "text");
   }
 
   function hidePW() {
     document.getElementById("password").setAttribute("type", "password");
-    document.getElementById("confirm-password").setAttribute("type", "password");
+    // document.getElementById("confirm-password").setAttribute("type", "password");
   }
 
   return (
@@ -49,7 +53,7 @@ const Signup = () => {
           </div>
           <div className="bg-cyan-300 rounded-md shadow-lg w-2/3">
             {/* Sign Up form */}
-            <form className='flex flex-col justify-center items-center gap-5 p-5'>
+            <form className='flex flex-col justify-center items-center gap-5 p-5' onSubmit={e=>e.preventDefault()}>
               <h1 className='text-2xl text-center text-[#13046b] font-bold'>Sign Up</h1>
 
               {/* Name */}

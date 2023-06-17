@@ -5,6 +5,8 @@ import { MdEmail, MdPassword } from 'react-icons/md'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { signinImage } from '../assets'
+import { Account, ID } from 'appwrite'
+import { client } from '../appwrite'
 
 
 const Signin = () => {
@@ -13,11 +15,17 @@ const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function onSignIn(e) {
+  const account = new Account(client);
+
+  async function onSignIn(e) {
+    await account.createEmailSession(email, password)
     e.preventDefault();
-    const userDetails = { email, password };
-    setUser(user);
-    console.log(userDetails);
+  }
+
+  async function googleSignIn(e) {
+    const result = await account.createOAuth2Session('google')
+    console.log(result)
+    e.preventDefault();
   }
 
   // 206761976086-cuhgo9uhp1l7vrctptjksi0uhr6et23h.apps.googleusercontent.com    cilent id
@@ -43,7 +51,7 @@ const Signin = () => {
           <img src={signinImage} alt="" className='w-[500px] h-[425px] object-cover' />
           <div className="bg-cyan-300 rounded-md shadow-lg flex justify-center items-center ">
             {/* Sign In form */}
-            <form className='flex flex-col justify-center items-center gap-5 p-5 w-full'>
+            <form className='flex flex-col justify-center items-center gap-5 p-5 w-full' onClick={e=>e.preventDefault()}>
               <h1 className='text-2xl text-center text-[#13046b] font-bold'>Sign In</h1>
               {/* Email */}
               <div className='flex'>
@@ -92,7 +100,7 @@ const Signin = () => {
                 <div className='flex flex-col justify-center items-center text-center gap-3'>
                   <p className='text-center text-black'>Sign In using : </p>
                   <div className='gooleBtn flex justify-center items-center gap-5'>
-                    <FcGoogle className='w-[30px] h-[30px] text-cyan-600 hover:text-[#db4437] transition-all ease-in-out duration-300 cursor-pointer' />
+                    <FcGoogle onClick={googleSignIn} className='w-[30px] h-[30px] text-cyan-600 hover:text-[#db4437] transition-all ease-in-out duration-300 cursor-pointer' />
                     <FaFacebook className='w-[30px] h-[30px] text-cyan-600 hover:text-[#3b5998] transition-all ease-in-out duration-300 cursor-pointer' />
                     <FaGithub className='w-[30px] h-[30px] text-cyan-600 hover:text-black transition-all ease-in-out duration-300 cursor-pointer' />
 
