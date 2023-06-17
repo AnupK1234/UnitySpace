@@ -93,9 +93,6 @@ const Signin = () => {
                   <p className='text-center text-black'>Sign In using : </p>
                   <div className='gooleBtn flex justify-center items-center gap-5'>
                     <FcGoogle className='w-[30px] h-[30px] text-cyan-600 hover:text-[#db4437] transition-all ease-in-out duration-300 cursor-pointer' />
-                    <FaFacebook className='w-[30px] h-[30px] text-cyan-600 hover:text-[#3b5998] transition-all ease-in-out duration-300 cursor-pointer' />
-                    <FaGithub className='w-[30px] h-[30px] text-cyan-600 hover:text-black transition-all ease-in-out duration-300 cursor-pointer' />
-
                   </div>
                 </div>
                 <p className='text-cyan-900 font-medium'>Do not have an account ? <span className='text-cyan-800 hover:text-gray-800 transition-all duration-300 ease-in-out '><Link to="/signup">Sign Up</Link></span> </p>
