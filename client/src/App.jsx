@@ -1,5 +1,5 @@
-import { Navbar } from "./components"
-import { Home, Signin, Signup } from "./pages"
+import { Navbar, Footer } from "./components"
+import { Home, Signin, Signup, Aware, Events, Profile } from "./pages"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 function App() {
   return (
@@ -9,7 +9,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/aware" element={<Aware />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }
