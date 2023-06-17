@@ -4,6 +4,8 @@ import { Navbar, Footer } from "./components"
 import { Home, Signin, Signup, Aware, Events, Profile } from "./pages"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { AppwriteContext } from './appwrite'
+import Me from './pages/Me';
+import Logout from './pages/Logout';
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
         <Route path="/aware" element={<Aware />} />
         <Route path="/events" element={<Events />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/me" element={<Me />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
       <Footer />
     </BrowserRouter>
