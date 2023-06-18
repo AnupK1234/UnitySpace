@@ -11,9 +11,12 @@ function getDate(event) {
   return `${month} ${day}, ${year}`;
 }
 const Events = () => {
+
+  const [register, setRegister] = useState(false);
+
   const database = new Databases(client);
   const [events, setEvents] = useState([]);
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   useEffect(() => {
     (async () => {
@@ -25,7 +28,7 @@ const Events = () => {
 
   const handleRegistration = (eventName) => {
     alert(`Registered for ${eventName}`);
-    // Perform registration logic here
+    setRegister(true);
   };
 
   return (
@@ -40,7 +43,10 @@ const Events = () => {
               <h3 className="event-name text-xl font-bold mb-2 text-cyan-600">{event.name}</h3>
               <p className="event-time text-gray-600">Date and Time: {getDate(event)}</p>
               <p className="event-location text-gray-600">Location: {event.location}</p>
-              <button className="btn-register bg-cyan-600 text-white px-4 py-2 rounded mt-2" onClick={() => handleRegistration(event.name)}>Register</button>
+              <button className="btn-register bg-cyan-600 text-white px-4 py-2 rounded mt-2" onClick={() => handleRegistration(event.name)}>
+              {/*once registered, change the register button to registered*/}
+                {register ? 'Registered' : 'Register'}
+                </button>
             </div>
           ))
         }
