@@ -8,7 +8,6 @@ We hope that our platform can help make the internet a more welcoming and inclus
 # What it does❓
 "UnitySpace" is an all-in-one platform for the LGBTQIA+ community.
 Our social media platform is a safe and welcoming space for LGBTQ+ people and allies to connect and interact. You can use it to:
-- Make friends
 - Find support
 - Share your experiences
 - Express yourself

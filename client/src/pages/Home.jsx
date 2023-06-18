@@ -17,7 +17,7 @@ const Home = () => {
 
   const [tweets, setTweets] = useState([]);
   const [newTweet, setNewTweet] = useState('');
-  const {user} = useContext(AuthContext)
+  const {user} = useContext(AuthContext);
 
   const database = new Databases(client);
   // Fetch previous posts
