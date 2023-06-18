@@ -50,19 +50,19 @@ function App() {
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, resetUser }}>
     <BrowserRouter>
       <Navbar user={user} setUser={setUser} />
       <Routes>
-        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup setUser={setUser} user={user} />} />
         <Route path="/aware" element={<Aware />} />
-        <Route path="/events" element={<ProtectedRoute><Events /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/me" element={<ProtectedRoute><Me /></ProtectedRoute>} />
-        <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
-        <Route path="/news" element={<ProtectedRoute><News /></ProtectedRoute>} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/me" element={<Me />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/news" element={<News />} />
       </Routes>
       <Footer />
     </BrowserRouter>
