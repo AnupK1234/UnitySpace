@@ -18,33 +18,35 @@ function App() {
 
   const resetUser = () => {
     setUser(defaultUser);
-  }
+  };
 
-  if (user.state === 'null') {
-    setUser(user => {
-      return {...user, state: 'loading'};
-    });
-    (async () => {
-      try {
-        const result = await account.getSession('current');
-        console.log('From app.jsx', result)
-        setUser(user => {
-          return {...user, ...result, state: 'logged-in'};
-        });
-      } catch (error) {
-        if (error.code !== 401) {
-          console.error('Error in auth', JSON.stringify(error));
+  useEffect(() => {
+    if (user.state === 'null') {
+      setUser(user => {
+        return { ...user, state: 'loading' };
+      });
+      (async () => {
+        try {
+          const result = await account.getSession('current');
+          console.log('From app.jsx', result);
           setUser(user => {
-            return {...defaultUser, state: 'error'};
+            return { ...user, ...result, state: 'logged-in' };
           });
-        } else {
-          setUser(user => {
-            return {...defaultUser, state: 'logged-out'};
-          })
+        } catch (error) {
+          if (error.code !== 401) {
+            console.error('Error in auth', JSON.stringify(error));
+            setUser(user => {
+              return { ...defaultUser, state: 'error' };
+            });
+          } else {
+            setUser(user => {
+              return { ...defaultUser, state: 'logged-out' };
+            });
+          }
         }
-      }
-    })();
-  }
+      })();
+    }
+  }, []);
 
 
   return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Account } from 'appwrite';
 import { client } from '../appwrite';
 import { AuthContext } from '../context/Auth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 /**
  *
@@ -10,13 +10,19 @@ import { useNavigate } from 'react-router-dom';
  * @returns {import('react').ReactNode}
  */
 export default function ProtectedRoute({ children }) {
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
     useEffect(() => {
-        if (user && user.state !== 'logged-in') {
+        if (user.state == 'logged-out' || user.state == 'null' || user.state == 'error') {
+            console.log('redirecting to signin', user)
             navigate('/signin');
-        } else {
-            return children;
         }
-    }, [user, children, navigate]);
+    }, []);
+    if (user.state === 'logged-in') {
+        return children;
+    } else {
+        console.log('loading with state', user)
+        return <div>Loading...</div>
+    }
 }

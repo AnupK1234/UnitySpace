@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
-import { logo } from '../assets'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react';
+import { logo } from '../assets';
+import { Link, useNavigate } from 'react-router-dom';
 import { client } from '../appwrite';
 import { Account } from 'appwrite';
 import { AuthContext } from '../context/Auth';
 
-const Navbar = ({ user, setUser }) => {
-  const { resetUser } = useContext(AuthContext)
+const Navbar = () => {
+  const { user, setUser, resetUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const account = new Account(client);
@@ -16,6 +16,22 @@ const Navbar = ({ user, setUser }) => {
     resetUser();
     navigate('/');
   }
+
+  useEffect(() => {
+    (async () => {
+      const accountData = await account.getSession('current');
+      const accessToken = accountData.providerAccessToken;
+      const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const userData = await response.json();
+      setUser(user => {
+        return {...user, picture: userData.picture};
+      });
+    })();
+  }, []);
 
   return (
     <div className='bg-cyan-700'>
@@ -40,7 +56,7 @@ const Navbar = ({ user, setUser }) => {
 
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

@@ -11,25 +11,24 @@ import { AuthContext } from '../context/Auth';
 
 
 const Signin = () => {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { resetUser } = useContext(AuthContext);
+  const { user, setUser, resetUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const account = new Account(client);
-
-  const navigate = useNavigate();
+  const redirect = '/';
 
   async function onSignIn(e) {
     await account.createEmailSession(email, password);
-    navigate('/');
     resetUser();
+    navigate(redirect);
     e.preventDefault();
   }
 
   async function googleSignIn(e) {
-    const result = account.createOAuth2Session('google', 'http://localhost:5173', 'http://localhost:5173/failed');
-    resetUser();
+    setTimeout(resetUser, 1000);
+    const result = await account.createOAuth2Session('google', 'http://localhost:5173' + redirect, 'http://localhost:5173/failed');
     e.preventDefault();
   }
 
