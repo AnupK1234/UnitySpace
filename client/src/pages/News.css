@@ -1,0 +1,11 @@
+.card {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Rainbow_flag.svg/1200px-Rainbow_flag.svg.png);
+    background-size: cover;
+  }
+  h1 {
+    text-align: center;
+    font-size: 10em;
+    font-weight: bold;
+    color: #ff0000;
+  }
+  
