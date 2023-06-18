@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react"
 import { Navbar, Footer } from "./components"
-import { Home, Signin, Signup, Aware, Events, Profile } from "./pages"
+import { Home, Signin, Signup, Aware, Events, Profile, News } from "./pages"
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
 import { AppwriteContext, client } from './appwrite'
 import Me from './pages/Me';
@@ -27,6 +27,7 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/me" element={<ProtectedRoute><Me /></ProtectedRoute>} />
         <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
+        <Route path="/news" element={<ProtectedRoute><News /></ProtectedRoute>} />
       </Routes>
       <Footer />
     </BrowserRouter>
