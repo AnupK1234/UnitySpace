@@ -53,7 +53,7 @@ const Home = () => {
         {tweets.map(tweet => (
           <div className="bg-white rounded-lg shadow p-4 mt-4" key={tweet.id}>
             <h3 className="text-lg font-bold">{tweet.author}</h3>
-            <AiFillEdit className="text-gray-500" />
+            <AiFillEdit className="text-gray-500 float-right text-2xl" />
             <p className="text-gray-700">{tweet.content}</p>
             <p className="text-gray-500 mt-2">{tweet.timestamp}</p>
           </div>
