@@ -27,7 +27,7 @@ const Events = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-cyan-600 to-cyan-300">
+    <div className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen">
       <div className="container mx-auto p-4">
         <h1 className="text-4xl font-bold text-center text-white mt-8">LGBTQ Events</h1>
 
