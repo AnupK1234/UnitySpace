@@ -27,8 +27,9 @@ const Navbar = () => {
         },
       });
       const userData = await response.json();
+      console.log('Data from google', userData)
       setUser(user => {
-        return {...user, picture: userData.picture};
+        return {...user, picture: userData.picture, name: userData.name};
       });
     })();
   }, []);

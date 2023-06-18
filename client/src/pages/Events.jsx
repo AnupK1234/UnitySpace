@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Databases, Query } from 'appwrite';
 import { client } from '../appwrite';
+import { AuthContext } from '../context/Auth';
 
 function getDate(event) {
   const date = new Date(event.startDate);
@@ -12,6 +13,7 @@ function getDate(event) {
 const Events = () => {
   const database = new Databases(client);
   const [events, setEvents] = useState([]);
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
     (async () => {

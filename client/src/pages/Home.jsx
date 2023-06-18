@@ -1,13 +1,23 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Databases, ID } from 'appwrite';
 import { client } from '../appwrite';
 import { AiFillEdit } from 'react-icons/ai'
+import { AuthContext } from '../context/Auth';
+
+function getDate(unformatted) {
+  const date = new Date(unformatted);
+  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+  const month = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
+  return `${month} ${day}, ${year}`;
+}
 
 const Home = () => {
 
   const [tweets, setTweets] = useState([]);
   const [newTweet, setNewTweet] = useState('');
+  const {user} = useContext(AuthContext)
 
   const database = new Databases(client);
   // Fetch previous posts
@@ -24,9 +34,9 @@ const Home = () => {
 
     // Create new post object
     const result = await database.createDocument('events', 'posts', ID.unique(), {
-      author: 'me',
+      author: user.name,
       content: newTweet,
-      timestamp: new Date().toLocaleString()
+      timestamp: getDate(new Date())
     });
     console.log(result);
   };
@@ -55,7 +65,7 @@ const Home = () => {
             <h3 className="text-lg font-bold">{tweet.author}</h3>
             <AiFillEdit className="text-gray-500 float-right text-2xl" />
             <p className="text-gray-700">{tweet.content}</p>
-            <p className="text-gray-500 mt-2">{tweet.timestamp}</p>
+            <p className="text-gray-500 mt-2">{getDate(tweet.timestamp)}</p>
           </div>
         ))}
       </div>
