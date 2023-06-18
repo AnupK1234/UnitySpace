@@ -43,6 +43,7 @@ const Navbar = () => {
           <Link to="/"><h1 className='font-bold text-3xl text-white'>UnitySpace</h1></Link>
         </div>
         <div className='flex justify-around items-center gap-5'>
+        <Link to="/news" className='text-xl font-semibold text-cyan-300 hover:text-white transition-all duration-300 ease-in-out'>News</Link>
           <Link to="/aware" className='text-xl font-semibold text-cyan-300 hover:text-white transition-all duration-300 ease-in-out'>Aware</Link>
           <Link to="/events" className='text-xl font-semibold text-cyan-300 hover:text-white transition-all duration-300 ease-in-out'>Events</Link>
           {user.userId ? <Link to="/profile" className='text-xl font-semibold text-cyan-300 hover:text-white transition-all duration-300 ease-in-out p-2 rounded-md '>Profile</Link> : <Link to="/signin" className='text-xl font-semibold text-cyan-300 hover:text-white transition-all duration-300 ease-in-out bg-gray-700 p-2 rounded-md hover:bg-teal-700 '>Sign In</Link>}
