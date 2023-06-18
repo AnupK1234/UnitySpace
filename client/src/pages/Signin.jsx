@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdEmail, MdPassword } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc'
@@ -7,21 +7,23 @@ import { Link } from 'react-router-dom';
 import { signinImage } from '../assets';
 import { Account } from 'appwrite';
 import { client } from '../appwrite';
+import { AuthContext } from '../context/Auth';
 
 
-const Signin = ({ setUser }) => {
+const Signin = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { user, setUser } = useContext(AuthContext);
 
   const account = new Account(client);
 
   const navigate = useNavigate();
 
-
-
   async function onSignIn(e) {
-    await account.createEmailSession(email, password);
+    const result = await account.createEmailSession(email, password);
+    setUser(result);
+    navigate('/');
     e.preventDefault();
   }
 

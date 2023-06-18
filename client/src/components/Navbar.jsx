@@ -1,10 +1,17 @@
 import React from 'react'
 import { logo } from '../assets'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { client } from '../appwrite';
+import { Account } from 'appwrite';
 
 const Navbar = ({ user, setUser }) => {
+  const navigate = useNavigate();
 
-  function handleSignOut() {
+  const account = new Account(client);
+
+  async function handleSignOut() {
+    await account.deleteSession('current');
+    navigate('/');
     setUser(null);
   }
 
