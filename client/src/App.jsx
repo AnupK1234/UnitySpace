@@ -22,7 +22,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup setUser={setUser} user={user} />} />
-        <Route path="/aware" element={<ProtectedRoute><Aware /></ProtectedRoute>} />
+        <Route path="/aware" element={<Aware />} />
         <Route path="/events" element={<ProtectedRoute><Events /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/me" element={<ProtectedRoute><Me /></ProtectedRoute>} />
