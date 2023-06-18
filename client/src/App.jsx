@@ -11,8 +11,41 @@ import { Account } from 'appwrite';
 import ProtectedRoute from './components/ProtectedComponent';
 
 function App() {
+  const defaultUser = { userId: null, name: null, picture: null, state: 'null' };
+  const [user, setUser] = useState(defaultUser);
 
-  const [user, setUser] = useState(null);
+  const account = new Account(client);
+
+  const resetUser = () => {
+    setUser(defaultUser);
+  }
+
+  if (user.state === 'null') {
+    setUser(user => {
+      return {...user, state: 'loading'};
+    });
+    (async () => {
+      try {
+        const result = await account.getSession('current');
+        console.log('From app.jsx', result)
+        setUser(user => {
+          return {...user, ...result, state: 'logged-in'};
+        });
+      } catch (error) {
+        if (error.code !== 401) {
+          console.error('Error in auth', JSON.stringify(error));
+          setUser(user => {
+            return {...defaultUser, state: 'error'};
+          });
+        } else {
+          setUser(user => {
+            return {...defaultUser, state: 'logged-out'};
+          })
+        }
+      }
+    })();
+  }
+
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
@@ -32,7 +65,7 @@ function App() {
       <Footer />
     </BrowserRouter>
     </AuthContext.Provider>
-  )
+  );
 }
 
-export default App
+export default App;

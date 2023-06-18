@@ -57,8 +57,8 @@ const Signup = ({ user, setUser }) => {
   }
 
   return (
-    <div className='p-5 flex justify-center items-center bg-cyan-400 min-h-screen'>
-      <div className='bg-gradient-to-br from-[#13046b] to-[#0c0527] p-5 rounded-md shadow-lg flex flex-col justify-center items-center gap-5'>
+    <div className='p-5 flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 min-h-screen'>
+      <div className='bg-gradient-to-br from-[#280fb5] to-[#330c4e] p-5 rounded-md shadow-lg flex flex-col justify-center items-center gap-5'>
         <div className='flex items-center w-full justify-center'>
           <h1 className='text-white text-3xl font-bold'>UnitySpace</h1>
         </div>
@@ -73,16 +73,16 @@ const Signup = ({ user, setUser }) => {
                 </div>
               </div>
             </div>
-            <p className='text-cyan-300 font-medium'>Already have an acccount ? <span className='text-cyan-600 hover:text-cyan-700 transition-all duration-300 ease-in-out '><Link to="/signin">Sign In</Link></span> </p>
+            <p className='text-white font-medium'>Already have an acccount ? <span className='text-pink-600 hover:text-red-700 transition-all duration-300 ease-in-out '><Link to="/signin">Sign In</Link></span> </p>
           </div>
-          <div className="bg-cyan-300 rounded-md shadow-lg w-2/3">
+          <div className="p-5 flex justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-md shadow-lg w-2/3">
             {/* Sign Up form */}
             <form className='flex flex-col justify-center items-center gap-5 p-5' onSubmit={e => e.preventDefault()}>
-              <h1 className='text-2xl text-center text-[#13046b] font-bold'>Sign Up</h1>
+              <h1 className='text-2xl text-center text-[#280fb5] font-bold'>Sign Up</h1>
 
               {/* Name */}
               <div className='flex gap-2'>
-                <FaUser className='w-[20px] h-[20px] text-cyan-600 absolute mt-2 ml-1 text-center' />
+                <FaUser className='w-[20px] h-[20px] text-[#280fb5] absolute mt-2 ml-1 text-center' />
                 <input
                   name='name'
                   type="text"
@@ -95,7 +95,7 @@ const Signup = ({ user, setUser }) => {
 
               {/* Email */}
               <div className='flex'>
-                <MdEmail className='w-[20px] h-[20px] text-cyan-600 absolute mt-2 ml-1 text-center' />
+                <MdEmail className='w-[20px] h-[20px] text-[#280fb5] absolute mt-2 ml-1 text-center' />
                 <input
                   name='email'
                   type="email"
@@ -107,7 +107,7 @@ const Signup = ({ user, setUser }) => {
 
               {/* New Password */}
               <div className='flex'>
-                <MdPassword className='w-[20px] h-[20px] text-cyan-600 absolute text-center mt-2 ml-1' />
+                <MdPassword className='w-[20px] h-[20px] text-[#280fb5] absolute text-center mt-2 ml-1' />
                 <input
                   name='password'
                   type="password"
@@ -118,13 +118,13 @@ const Signup = ({ user, setUser }) => {
                   onChange={(e) => setPassword(e.target.value)} />
 
                 {show ?
-                  <AiFillEyeInvisible className='w-[20px] h-[20px] text-cyan-600 absolute text-center cursor-pointer mt-2 ml-[322px]'
+                  <AiFillEyeInvisible className='w-[20px] h-[20px] text-[#280fb5] absolute text-center cursor-pointer mt-2 ml-[322px]'
                     onClick={() => {
                       setShow(false);
                       hidePW();
                     }} />
                   :
-                  <AiFillEye className='w-[20px] h-[20px] text-cyan-600 absolute  text-center cursor-pointer mt-2 ml-[322px]' onClick={() => {
+                  <AiFillEye className='w-[20px] h-[20px] text-[#280fb5] absolute  text-center cursor-pointer mt-2 ml-[322px]' onClick={() => {
                     setShow(true);
                     showPW();
                   }} />}
@@ -133,7 +133,7 @@ const Signup = ({ user, setUser }) => {
               {/* Submit button */}
               <button
                 onClick={onSignUp}
-                className='w-[350px] h-[40px] rounded-md bg-cyan-600 text-white font-bold hover:bg-cyan-700 transition-all ease-in-out duration-300'
+                className='w-[350px] h-[40px] rounded-md bg-[#280fb5] text-white font-bold hover:bg-[#160675] transition-all ease-in-out duration-300'
               >Sign Up</button>
             </form>
           </div>
