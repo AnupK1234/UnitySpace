@@ -14,22 +14,22 @@ const Signin = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, setUser } = useContext(AuthContext);
+  const { resetUser } = useContext(AuthContext);
 
   const account = new Account(client);
 
   const navigate = useNavigate();
 
   async function onSignIn(e) {
-    const result = await account.createEmailSession(email, password);
-    setUser(result);
+    await account.createEmailSession(email, password);
     navigate('/');
+    resetUser();
     e.preventDefault();
   }
 
   async function googleSignIn(e) {
     const result = account.createOAuth2Session('google', 'http://localhost:5173', 'http://localhost:5173/failed');
-    console.log('From google sign in', result);
+    resetUser();
     e.preventDefault();
   }
 
